@@ -1,0 +1,15 @@
+language: java
+jdk:
+    - oraclejdk8
+script:
+    - "./gradlew clean"
+    - "./gradlew build"
+    - "./gradlew bintrayUpload"
+
+after_success:
+    - git commit -a -m "Committed by Travis-CI build number: $TRAVIS_JOB_ID"
+
+env:
+  global:
+    - secure: guk3qVsqpd0FtciNOiyHiGtyDSHxLFf83tn591CEUON6QxFH7RIdN5DdQpgj9yvNI72cic5XQVbgXBRbdxMX1hmz39iqoz0fDlnDtxywCilu+bg2CoJpa/38BnflGkg8W8LRqxp5V2LzUUt4RqzGsi2Pg2GTgc2HNPh5dwMX+YXC4rY30mi7ZN2q8JxPLA0m7+Tmx3vxw1/omgE7h4ga3qeXUbsso9PaNVGrGBu8L4ZmbFVg8tLZKnycp+exW9Vk/OrQaxPDOqsCwZ4EHRlc/8kcBtODu4RdQS+UBwDZukYomIN3UwcjT3fPdbLTfLLnOCgXBUCFnpUlbcMudV8AgHOq0xmXeaOrAgzMFq2osu3RYh4XLEWTqKKOPo7uzN0XdjcXCtv3u79+LlCVhVrRGdiOqz7Ftd+dnEzYXWsVaCyPKYqwbRh8QuKOF2aDQO+eTVVWyHEmaI4SDT9e2WdP0XAd9omoESMi5A66P/hfdXurVU9OebBcLdv0jEzUQ3uJZRKXf4dlieM/+pEG4N6L8q+Y2CqiGz/A2rn3fbCAHoGTN7ftKnKUZpbMss0mN4O+mSdm364Zby2onok/G4kJgGB+alMgFR+IJgQIUCNn1P7l1ubV/LE9xWn0kVqiQAN8mCHnw2eNTVNEf3GE0btiPQTYlMsvDpBpr6uU+lBhsc0=
+    - secure: VXz8dxi4Bnev6837dRrn1InxhqGZcNw3PIQBL5bG9GIjWqw1ezMvMRvvpJdFzlRlZRMlWSwvXhpg7HQ1s4oM6yvSpmiFNnWSSVA6C9yofi6XwQUsGpfFyLpVahTnHWCtc+U3+00duTUpuryqACTqjEXs59SLSAsFDOi5PUp2q7VsLrmyJxlPZuQHA03R7ZieiHK5XNQ+M04rLqJ9dKU/XmVGNv7CADgu0R13ivQKCTjU1e8u/kQp7oyo+s1x3d3+yusQLdS/AbwJ1/Fh/iFfy7XVYPhynp+cNtNlK7sbOKGnkyF6qPiF+UIYbrYzuJgek46Cp71VS5JdbMYGdv/ZpOfgpDR+k487/SRm5Nl20si4XmNtojIc22xsZ36mylQBl7L5eEvfWVHN5medjURch2WlORHbM2ED0p3Aa7scttZp0boC4yLWABExXtu4OuBPacyudSHCNrJcWkrAI996qIKfBL8BhjTdHTH4qs9Bs0JRx/ClaJFO0OhIF7k2V3H1ROZRt2xFc4e0KHj3mK4bmaExgNX1B1rPRTUJPFdZsYP8kndjMbzyvsyXbafxgCdkbkOUGtXLFxNFPPbb8GkhYKeYBXEpjmqAR9T7HwScV7XAMRuJJpeuFpLriuPTz5i/EclHfg0pLLvndUmm8WN18rs5gIe3sbj9zcmvBk+AU+w=
