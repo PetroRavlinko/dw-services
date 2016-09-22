@@ -41,8 +41,7 @@ bintray {
 
     filesSpec {
         from 'build/libs'
-        into 'com/dw/services'
-        rename '(.+)\\.(.+)', '$1.' + travisJobId + '.$2'
+        into "/"
     }
 
     pkg {
