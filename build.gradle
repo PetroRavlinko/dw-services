@@ -3,6 +3,7 @@ plugins {
     id "war"
     id 'com.jfrog.bintray' version "1.7.1"
     id 'maven-publish'
+    id 'jacoco'
 }
 
 sourceCompatibility = 1.8
@@ -21,6 +22,20 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-core:2.6.7"
     compile "com.fasterxml.jackson.core:jackson-databind:2.6.7"
     compile 'junit:junit:4.12'
+}
+
+test {
+    jacoco {
+        destinationFile = file("build/jacoco/test.exec")
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "build/jacoco/jacocoHtml"
+    }
 }
 
 task wrapper(type: Wrapper) {
