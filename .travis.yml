@@ -7,9 +7,11 @@ script:
   - "./gradlew jacocoTestReport"
   - "./gradlew build"
   - sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectVersion=$DW_VERSION.$TRAVIS_BUILD_NUMBER
-  - "./gradlew bintrayUpload"
   - docker login -u$DOCKER_USER -p$DOCKER_SECRET
   - docker build -t ravlinko/dw-services:$DW_VERSION.$TRAVIS_BUILD_NUMBER -t ravlinko/dw-services:latest .
+  - docker run -d -p 80:8080 ravlinko/dw-services
+  - "./gradlew e2e"
+  - "./gradlew bintrayUpload"
   - docker push ravlinko/dw-services
 addons:
   sonarqube: true
@@ -18,6 +20,7 @@ services:
 cache:
   directories:
     - $HOME/.gradle/caches/
+    - $HOME/gradle/
 env:
   global:
   - DW_VERSION="1.1"
