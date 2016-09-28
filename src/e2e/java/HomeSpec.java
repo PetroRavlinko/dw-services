@@ -10,6 +10,5 @@ public class HomeSpec {
 				when().get("/").
 				then().statusCode(200).
 				and().body("message", equalTo("Hello!"));
-
 	}
 }

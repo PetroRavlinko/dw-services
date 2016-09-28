@@ -1,19 +1,15 @@
 plugins {
     id "java"
-    id "scala"
     id "war"
     id 'com.jfrog.bintray' version "1.7.1"
     id 'maven-publish'
     id 'jacoco'
+    id "com.github.lkishalmi.gatling" version "0.4.1"
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-ext {
-    scalaMajorVersion = '2.11'
-    scalaVersion = "${scalaMajorVersion}.5"
-}
 
 def travisJobId = System.getenv("TRAVIS_BUILD_NUMBER")
 String dwVersion = System.getenv("DW_VERSION")
@@ -30,15 +26,11 @@ dependencies {
     compile 'io.rest-assured:json-path:3.0.1'
     compile 'io.rest-assured:xml-path:3.0.1'
 
-    compile "org.scala-lang:scala-library:${scalaVersion}"
-    compile "org.scala-lang.modules:scala-xml_${scalaMajorVersion}:1.0.3"
-
     testCompile 'junit:junit:4.12'
     testCompile 'io.rest-assured:rest-assured:3.0.1'
     testCompile 'io.rest-assured:json-schema-validator:3.0.1'
-    testCompile 'io.rest-assured:scala-support:3.0.1'
-    testCompile 'org.scalatest:scalatest_2.11:3.0.0'
-    testRuntime 'org.pegdown:pegdown:1.6.0'
+
+    testCompile 'io.gatling.highcharts:gatling-charts-highcharts:2.2.2'
 }
 
 configurations {
@@ -52,9 +44,6 @@ sourceSets {
         runtimeClasspath += main.output + test.output
 
         java.srcDir file('src/e2e/java')
-    }
-
-    test {
         resources.srcDir file('src/e2e/resources')
     }
 }
@@ -62,6 +51,9 @@ sourceSets {
 test {
     jacoco {
         destinationFile = file("build/jacoco/test.exec")
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
     }
 }
 
@@ -74,14 +66,6 @@ task e2e(type: Test) {
     }
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        csv.enabled true
-        html.destination "build/jacoco/jacocoHtml"
-    }
-}
-
 task wrapper(type: Wrapper) {
     gradleVersion = '2.4'
 }
@@ -89,6 +73,7 @@ task wrapper(type: Wrapper) {
 repositories {
     repositories {
         jcenter()
+        mavenCentral()
     }
 }
 

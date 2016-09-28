@@ -11,6 +11,7 @@ script:
   - docker build -t ravlinko/dw-services:$DW_VERSION.$TRAVIS_BUILD_NUMBER -t ravlinko/dw-services:latest .
   - docker run -d -p 80:8080 ravlinko/dw-services
   - "./gradlew e2e"
+  - "./gradlew gatlingRun"
   - "./gradlew bintrayUpload"
   - docker push ravlinko/dw-services
 addons:
